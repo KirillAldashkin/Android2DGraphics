@@ -1,0 +1,30 @@
+name: .NET
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup JDK 11
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Install Android Workload
+      run: dotnet workload install android
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build -c Release --no-restore
+    - name: Upload APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: graphicsapp
+        path: bin/Release/net6.0-android/ru.nukleer.graphicstest-Signed.apk

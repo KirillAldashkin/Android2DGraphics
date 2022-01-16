@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Настройки .NET -->
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>net6.0-android</TargetFramework>
+    <!-- Настройки Android -->
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationId>ru.nukleer.graphicstest</ApplicationId>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="KiDev.AndroidAutoFinder" Version="1.0.2" />
+  </ItemGroup>
+</Project>
