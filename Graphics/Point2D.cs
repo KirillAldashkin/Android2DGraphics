@@ -22,9 +22,14 @@ public struct Point2D
     public Point2D ToScreen(Point2D screenSize, double factor = 1) => 
         (this * Min(screenSize.X, screenSize.Y) * 0.5 * factor) + (screenSize * 0.5);
 
+    // Выполняет преобразование, обратное преобразванию Point2D.ToScreen(Point2D, double).
+    public Point2D FromScreen(Point2D screenSize, double factor = 1) =>
+        (this - (screenSize * 0.5)) / Min(screenSize.X, screenSize.Y) / 0.5 / factor;
+
     public static Point2D operator +(Point2D a, Point2D b) => new(a.X + b.X, a.Y + b.Y);
     public static Point2D operator -(Point2D a, Point2D b) => new(a.X - b.X, a.Y - b.Y);
     public static Point2D operator *(Point2D a, double f) => new(a.X * f, a.Y * f);
+    public static Point2D operator /(Point2D a, double f) => new(a.X / f, a.Y / f);
 
     public override string ToString() => $"(X:{X:F3} | Y:{Y:F3})";
 }

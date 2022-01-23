@@ -9,6 +9,7 @@ using GraphicsApp.Drawers;
 using GraphicsApp.Filters;
 using GraphicsApp.Graphics;
 using Filter = GraphicsApp.Filters.Filter;
+using Android.Graphics;
 
 namespace GraphicsApp;
 
@@ -20,14 +21,18 @@ public partial class MainActivity : Activity, ISensorEventListener
     [FindById(Id.exit_button)] Button exitButton;
     [FindById(Id.bipyramid_ex)] Button bipyrButton;
     [FindById(Id.cube_example)] Button cubeButton;
+    [FindById(Id.image_example)] Button imageButton;
 
+    Bitmap ballBitmap;
     void AfterOnCreate()
     {
+        ballBitmap = BitmapFactory.DecodeResource(Resources, Drawable.ball);
         var manager = (SensorManager)GetSystemService(SensorService);
         manager.RegisterListener(this, manager.GetDefaultSensor(SensorType.Gravity), SensorDelay.Game);
         exitButton.Click += (_, _) => Finish();
         cubeButton.Click += (_, _) => LaunchDrawer(new CubeDrawer(() => gravityPoint));
         bipyrButton.Click += (_, _) => LaunchDrawer(new BipyramidDrawer(8));
+        imageButton.Click += (_, _) => LaunchDrawer(new ImageDrawer(ballBitmap));
     }
     
     // Запускает SurfaceActivity с заданным отрисовщиком
@@ -41,9 +46,9 @@ public partial class MainActivity : Activity, ISensorEventListener
     #region Реализация ISensorEventListener
     Point3D gravityPoint; // Точка, описывающая гравитацию
 
-    Filter filterX = new MedianFilter(17).Chain(new ExponentialFilter(0.85)),
-           filterY = new MedianFilter(17).Chain(new ExponentialFilter(0.85)),
-           filterZ = new MedianFilter(17).Chain(new ExponentialFilter(0.85)); // Фильты по координатам
+    Filter filterX = new MedianFilter(13).Chain(new ExponentialFilter(0.9)),
+           filterY = new MedianFilter(13).Chain(new ExponentialFilter(0.9)),
+           filterZ = new MedianFilter(13).Chain(new ExponentialFilter(0.9)); // Фильты по координатам
 
     public void OnAccuracyChanged(Sensor sensor, SensorStatus accuracy) { }
 

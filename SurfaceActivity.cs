@@ -24,7 +24,13 @@ public class SurfaceActivity : Activity, ISurfaceHolderCallback
         surfaceHolder.AddCallback(this);
     }
 
-    // Функция отрисовки одного кадра. Вызывается в потоке для отрисовки
+    public override bool OnTouchEvent(MotionEvent e) => Drawer switch
+    {
+        ITouchListener listener => listener.TouchOccured(e) || base.OnTouchEvent(e),
+        _ => base.OnTouchEvent(e)
+    };
+
+    // Функция отрисовки кадра. Вызывается в потоке для отрисовки
     private void DrawCycle()
     {
         try

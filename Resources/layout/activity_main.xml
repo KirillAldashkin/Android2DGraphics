@@ -14,6 +14,11 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Изображение"
+        android:id="@+id/image_example"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Куб"
         android:id="@+id/cube_example"/>
     <Button
