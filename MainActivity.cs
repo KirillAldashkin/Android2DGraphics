@@ -21,16 +21,22 @@ public partial class MainActivity : Activity, ISensorEventListener
     [FindById(Id.exit_button)] Button exitButton;
     [FindById(Id.bipyramid_ex)] Button bipyrButton;
     [FindById(Id.cube_example)] Button cubeButton;
+    [FindById(Id.char_example)] Button charButton;
     [FindById(Id.image_example)] Button imageButton;
 
-    Bitmap ballBitmap;
+    Bitmap ballBitmap, spritesBitmap, cityBitmap;
     void AfterOnCreate()
     {
         ballBitmap = BitmapFactory.DecodeResource(Resources, Drawable.ball);
+        cityBitmap = BitmapFactory.DecodeResource(Resources, Drawable.cityback);
+        spritesBitmap = BitmapFactory.DecodeResource(Resources, Drawable.sprites);
+
         var manager = (SensorManager)GetSystemService(SensorService);
         manager.RegisterListener(this, manager.GetDefaultSensor(SensorType.Gravity), SensorDelay.Game);
+
         exitButton.Click += (_, _) => Finish();
         cubeButton.Click += (_, _) => LaunchDrawer(new CubeDrawer(() => gravityPoint));
+        charButton.Click += (_, _) => LaunchDrawer(new RunnerDrawer(spritesBitmap, cityBitmap));
         bipyrButton.Click += (_, _) => LaunchDrawer(new BipyramidDrawer(8));
         imageButton.Click += (_, _) => LaunchDrawer(new ImageDrawer(ballBitmap));
     }
